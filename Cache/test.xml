@@ -1,0 +1,343 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25" zv="Cache for Windows (x86-64) 2014.1 (Build 601U)" ts="2014-03-07 11:19:23">
+<Class name="User.QL">
+<Description>
+Demo of speed of loading data into a class
+
+Instructions:
+  1.  do ##class(QL).Populate(1000000)
+  2.  do ##class(QL).ExportToFile("temp.txt")
+  3.  kill ^User.QLD
+  4.  (important!) wait until garbage has been collected
+  5. do ##class(QL).ImportFromFile("temp.txt")</Description>
+<ClassType>persistent</ClassType>
+<ProcedureBlock>1</ProcedureBlock>
+<Super>%Persistent,%Populate</Super>
+<TimeChanged>62832,56209.809698</TimeChanged>
+<TimeCreated>60030,39595.372673</TimeCreated>
+<Inheritance>right</Inheritance>
+
+<Property name="Name">
+<Type>%String</Type>
+<Parameter name="POPSPEC" value="##Class(Sample.PopulateUtils).Name()"/>
+<Parameter name="TRUNCATE" value="1"/>
+</Property>
+
+<Property name="Title">
+<Type>%String</Type>
+<Parameter name="POPSPEC" value="##Class(Sample.PopulateUtils).Title()"/>
+<Parameter name="TRUNCATE" value="1"/>
+</Property>
+
+<Property name="Sex">
+<Type>%String</Type>
+<Parameter name="POPSPEC" value="##Class(Sample.PopulateUtils).Sex()"/>
+<Parameter name="TRUNCATE" value="1"/>
+</Property>
+
+<Property name="Company">
+<Type>%String</Type>
+<Parameter name="POPSPEC" value="##Class(Sample.PopulateUtils).Company()"/>
+<Parameter name="TRUNCATE" value="1"/>
+</Property>
+
+<Property name="Phone">
+<Type>%String</Type>
+<Parameter name="POPSPEC" value="##Class(Sample.PopulateUtils).JPNPhone()"/>
+<Parameter name="TRUNCATE" value="1"/>
+</Property>
+
+<Property name="City">
+<Type>%String</Type>
+<Parameter name="TRUNCATE" value="1"/>
+</Property>
+
+<Property name="State">
+<Type>%String</Type>
+<Parameter name="TRUNCATE" value="1"/>
+</Property>
+
+<Property name="Zip">
+<Type>%String</Type>
+<Parameter name="TRUNCATE" value="1"/>
+</Property>
+
+<Method name="ExportToFile">
+<ClassMethod>1</ClassMethod>
+<FormalSpec>file:%String</FormalSpec>
+<Implementation><![CDATA[
+ set file=$g(file) if $l(file) open file:"WNS" use file
+ for i=1:1:^User.QLD {
+	 write $ListToString(^User.QLD(i),";"),! 
+ }
+ i $l(file) c file
+]]></Implementation>
+</Method>
+
+<Method name="ImportFromFile">
+<ClassMethod>1</ClassMethod>
+<FormalSpec>file:%String</FormalSpec>
+<Implementation><![CDATA[
+ set s=$zts write !,"Started at ",s
+ set file=$g(file) if $l(file) open file:"R" use file
+ set $zt="eof"
+ while 1 {
+	 read x set ^User.QLD($i(^User.QLD))=$ListFromString(x,";")
+}
+
+eof i $l(file) c file
+ write !,"Loaded ",^User.QLD," objects in ",$p($zts,",",2)-$p(s,",",2)," seconds"
+]]></Implementation>
+</Method>
+
+<Method name="OnPopulate">
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+	Set id=$R($Get(^Yubin.ZenkokuD)+1)
+	If id = 0 Set id = 1
+	Set yubindata=^Yubin.ZenkokuD(id)
+	Set ..Zip=$List(yubindata,4)
+	Set ..State=$List(yubindata,8)
+	Set ..City=$List(yubindata,9)
+	QUIT $$$OK
+]]></Implementation>
+</Method>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+<DataLocation>^User.QLD</DataLocation>
+<DefaultData>QLDefaultData</DefaultData>
+<IdLocation>^User.QLD</IdLocation>
+<IndexLocation>^User.QLI</IndexLocation>
+<StreamLocation>^User.QLS</StreamLocation>
+<ExtentSize>100000</ExtentSize>
+<Data name="QLDefaultData">
+<Structure>listnode</Structure>
+<Subscript/>
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+<Value name="2">
+<Value>City</Value>
+</Value>
+<Value name="3">
+<Value>Company</Value>
+</Value>
+<Value name="4">
+<Value>Name</Value>
+</Value>
+<Value name="5">
+<Value>Phone</Value>
+</Value>
+<Value name="6">
+<Value>Sex</Value>
+</Value>
+<Value name="7">
+<Value>State</Value>
+</Value>
+<Value name="8">
+<Value>Title</Value>
+</Value>
+<Value name="9">
+<Value>Zip</Value>
+</Value>
+</Data>
+</Storage>
+</Class>
+
+
+<Class name="User.QL2">
+<ClassType>persistent</ClassType>
+<ProcedureBlock>1</ProcedureBlock>
+<Super>%Persistent,%Populate</Super>
+<TimeChanged>63249,57689.455222</TimeChanged>
+<TimeCreated>60030,39595.372673</TimeCreated>
+<Inheritance>right</Inheritance>
+
+<Property name="Name">
+<Type>%String</Type>
+<Parameter name="POPSPEC" value="##Class(Sample.PopulateUtils).Name()"/>
+<Parameter name="TRUNCATE" value="1"/>
+</Property>
+
+<Property name="Title">
+<Type>%String</Type>
+<Parameter name="POPSPEC" value="##Class(Sample.PopulateUtils).Title()"/>
+<Parameter name="TRUNCATE" value="1"/>
+</Property>
+
+<Property name="Sex">
+<Type>%String</Type>
+<Parameter name="POPSPEC" value="##Class(Sample.PopulateUtils).Sex()"/>
+<Parameter name="TRUNCATE" value="1"/>
+</Property>
+
+<Property name="Company">
+<Type>%String</Type>
+<Parameter name="POPSPEC" value="##Class(Sample.PopulateUtils).Company()"/>
+<Parameter name="TRUNCATE" value="1"/>
+</Property>
+
+<Property name="Phone">
+<Type>%String</Type>
+<Parameter name="POPSPEC" value="##Class(Sample.PopulateUtils).JPNPhone()"/>
+<Parameter name="TRUNCATE" value="1"/>
+</Property>
+
+<Property name="City">
+<Type>%String</Type>
+<Parameter name="TRUNCATE" value="1"/>
+</Property>
+
+<Property name="State">
+<Type>%String</Type>
+<Parameter name="TRUNCATE" value="1"/>
+</Property>
+
+<Property name="Zip">
+<Type>%String</Type>
+<Parameter name="TRUNCATE" value="1"/>
+</Property>
+
+<Index name="NameIndex">
+<Properties>Name</Properties>
+</Index>
+
+<Index name="CompanyIndex">
+<Properties>Company</Properties>
+</Index>
+
+<Index name="PhoneIndex">
+<Properties>Phone</Properties>
+</Index>
+
+<Method name="OnPopulate">
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+	Set id=$R($Get(^Yubin.ZenkokuD)+1)
+	If id = 0 Set id = 1
+	Set yubindata=^Yubin.ZenkokuD(id)
+	Set ..Zip=$List(yubindata,4)
+	Set ..State=$List(yubindata,8)
+	Set ..City=$List(yubindata,9)
+	QUIT $$$OK
+]]></Implementation>
+</Method>
+
+<Method name="ImportFromFile">
+<ClassMethod>1</ClassMethod>
+<FormalSpec>pFile:%String</FormalSpec>
+<Implementation><![CDATA[
+	 //埋め込みSQLを使用してインポート
+ Try {	
+   Set pFile=$g(pFile) If $Length(pFile) Open pFile:"R" Use pFile
+   Set tDelim = ";"
+   For {
+	     Read tLine
+	     Set pCity = $Piece(tLine,tDelim,1) ;City
+	     Set pCompany = $Piece(tLine,tDelim,2) ;Company
+	     Set pName = $Piece(tLine,tDelim,3) ;Name
+	     Set pPhone = $Piece(tLine,tDelim,4) ;Phone
+	     Set pSex = $Piece(tLine,tDelim,5) ;Sex
+	     Set pState = $Piece(tLine,tDelim,6) ;State
+	     Set pTitle = $Piece(tLine,tDelim,7) ;Title
+	     Set pZip = $Piece(tLine,tDelim,8) ;Zip
+	     &sql(INSERT %NOINDEX INTO ql2 (Name, Title, Sex, Company, Phone, City, State, Zip) values (:pName, :pTitle, :pSex, :pCompany, :pCity, :pCity, :pState, :pZip))
+   }
+ }
+ Catch Err {
+   If $Length(pFile) Close pFile
+   If Err.Name="<ENDOFFILE>" {
+	   Do ..%BuildIndices()
+   }
+   Else {
+	   Write "予期せぬエラーが発生しました。",Err.Name,!
+   }
+ }
+]]></Implementation>
+</Method>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+<DataLocation>^User.QL2D</DataLocation>
+<DefaultData>QL2DefaultData</DefaultData>
+<IdLocation>^User.QL2D</IdLocation>
+<IndexLocation>^User.QL2I</IndexLocation>
+<StreamLocation>^User.QL2S</StreamLocation>
+<ExtentSize>100000</ExtentSize>
+<Data name="QL2DefaultData">
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+<Value name="2">
+<Value>Name</Value>
+</Value>
+<Value name="3">
+<Value>Title</Value>
+</Value>
+<Value name="4">
+<Value>Sex</Value>
+</Value>
+<Value name="5">
+<Value>Company</Value>
+</Value>
+<Value name="6">
+<Value>Phone</Value>
+</Value>
+<Value name="7">
+<Value>City</Value>
+</Value>
+<Value name="8">
+<Value>State</Value>
+</Value>
+<Value name="9">
+<Value>Zip</Value>
+</Value>
+</Data>
+</Storage>
+</Class>
+
+
+<Class name="User.myWebSocket">
+<Super>%CSP.WebSocket</Super>
+<TimeChanged>63133,58385.229173</TimeChanged>
+<TimeCreated>63133,54826.220614</TimeCreated>
+
+<Method name="OnPreServer">
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+  set ..WebSocketID="myWebSocket"
+  set ..SharedConnection = 0
+  quit $$$OK
+]]></Implementation>
+</Method>
+
+<Method name="l">
+<FormalSpec>m</FormalSpec>
+<Implementation><![CDATA[  set ^myWebSocket($i(^myWebSocket))=$G(m,"????")
+]]></Implementation>
+</Method>
+
+<Method name="Server">
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+  set sc=$$$OK
+  set sc=..Write("Hello dude")
+  while ( '$$$ISERR(sc) ) {
+    set data=..Read(,.sc)
+    if ( $$$ISERR(sc) ) {
+    do ..l(sc)
+    }
+  do ..l($g(data,"????"))
+  set sc=..Write(data)
+  if ( data = "quit" ) {
+  goto exit
+  }
+}
+exit
+  set sc=..EndServer()
+  Quit sc
+]]></Implementation>
+</Method>
+</Class>
+</Export>

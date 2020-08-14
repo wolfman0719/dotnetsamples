@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25" zv="Cache for Windows (x86-64) 2014.1 (Build 588U)" ts="2014-04-17 16:53:34">
+<Class name="REST.JSON">
+<Super>%Base</Super>
+<TimeChanged>63294,54416.262786</TimeChanged>
+<TimeCreated>63034,41906.058399</TimeCreated>
+
+<Method name="GetAllCompanies">
+<ClassMethod>1</ClassMethod>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+	
+    set tS=$$$OK
+    
+    try {	$$$THROWONERROR(tS,##class(%ZEN.Auxiliary.jsonSQLProvider).%WriteJSONFromSQL(,"select * from Data.Company"))
+    } catch ex {
+        set tS=ex.AsStatus()
+    }
+    
+    quit tS
+]]></Implementation>
+</Method>
+
+<Method name="GetColorsDirect">
+<ClassMethod>1</ClassMethod>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+	
+    set tS=$$$OK
+    
+    try {
+	         write "[",!
+	         write "    [""red"", ""赤""],",!
+	         write "    [""blue"", ""青""],",!
+	         write "    [""yellow"", ""黄""],",!
+	         write "]",!
+    } catch ex {
+        set tS=ex.AsStatus()
+    }
+    quit tS
+]]></Implementation>
+</Method>
+
+<Method name="GetColorsArray">
+<ClassMethod>1</ClassMethod>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+	
+    set tS=$$$OK
+    
+    try {
+            Set tMetaData = $LB("red","blue","yellow")
+            Set tData = $LB("赤","青","黄色")
+	    	$$$THROWONERROR(tS,##class(%ZEN.Auxiliary.jsonProvider).%ArrayToJSON(tMetaData, .tData))
+    } catch ex {
+        set tS=ex.AsStatus()
+    }
+    
+    quit tS
+]]></Implementation>
+</Method>
+
+<Method name="GetColorsSQL">
+<ClassMethod>1</ClassMethod>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+	
+    set tS=$$$OK
+    
+    try {
+            $$$THROWONERROR(tS,##class(%ZEN.Auxiliary.jsonSQLProvider).%WriteJSONFromSQL(,"select englishname,japanesename from Data.Color"))
+    } catch ex {
+        set tS=ex.AsStatus()
+    }
+    quit tS
+]]></Implementation>
+</Method>
+
+<Method name="GetColorsObject">
+<ClassMethod>1</ClassMethod>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+	
+    set tS=$$$OK
+    
+    try {
+	        set OBJ1 = ##class(Data.Color).%OpenId(1)
+	        set OBJ2 = ##class(Data.Color).%OpenId(2)
+	        set OBJ3 = ##class(Data.Color).%OpenId(3)
+	        set tList = ##class(%ListOfObjects).%New()
+	        set sts = tList.Insert(OBJ1)
+	        set sts = tList.Insert(OBJ2)
+	        set sts = tList.Insert(OBJ3)
+            $$$THROWONERROR(tS,##class(%ZEN.Auxiliary.jsonProvider).%ObjectToJSON(tList))
+    } catch ex {
+        set tS=ex.AsStatus()
+    }
+    quit tS
+]]></Implementation>
+</Method>
+
+<Method name="UpdateCompany">
+<ClassMethod>1</ClassMethod>
+<FormalSpec>compid:%String</FormalSpec>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+  set tS=$$$OK
+  
+  try {
+    // Contents will be the JSON-encoded Company data; it returns 
+    // an instance of Data.Company by reference in obj.
+    $$$THROWONERROR(st,##class(%ZEN.Auxiliary.jsonProvider).%ConvertJSONToObject(%request.Content,,.obj,1))
+    
+    // Open object we want to update
+    set comp=##class(Data.Company).%OpenId(compid)
+    throw:comp=$$$NULLOREF ##class(%Exception.StatusException).CreateFromStatus($$$ERROR(5001,"Company does not exist"))
+
+    // Copy properties over and save
+    set comp.Name=obj.Name
+    $$$THROWONERROR(st,comp.%Save())
+  } 
+ catch ex {
+    set tS=ex.AsStatus()
+  }
+  quit tS
+]]></Implementation>
+</Method>
+
+<Method name="DeleteCompany">
+<ClassMethod>1</ClassMethod>
+<FormalSpec>compid:%String</FormalSpec>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+	s tS=$$$OK
+	try {
+		$$$THROWONERROR(st,##class(Data.Company).%DeleteId(compid))
+	} catch ex {
+		s tS=ex.AsStatus()
+	}
+	q tS
+]]></Implementation>
+</Method>
+
+<Method name="CreateCompany">
+<ClassMethod>1</ClassMethod>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+	s tS=$$$OK
+	try {
+	$$$THROWONERROR(st,##class(%ZEN.Auxiliary.jsonProvider).%ConvertJSONToObject(%request.Content,,.obj,1))
+	$$$THROWONERROR(st,obj.%Save())
+	} 
+	catch ex {
+		s tS=ex.AsStatus()
+	}
+	q tS
+]]></Implementation>
+</Method>
+
+<Method name="checklogin">
+<ClassMethod>1</ClassMethod>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+	s tS=$$$OK
+	
+	try {
+	  //$$$THROWONERROR(st,##class(%ZEN.Auxiliary.jsonProvider).%ConvertJSONToObject(%request.Content,,.obj,1))
+	  set username = %request.Data("username",1)
+	  set password = %request.Data("password",1)
+	  if (username = "sato") && (password = "sato") {
+		 write "{""success"":1}",!
+	  }
+	  else {
+		write "{""success"":0,""error_message"":""Username and/or password is invalid.""}",!
+	  }
+	} 
+	catch ex {
+		write "{""success"":0,""error_message"":""Username and/or password is invalid.""}",!
+		//s st=ex.AsStatus()
+	}
+	q tS
+]]></Implementation>
+</Method>
+
+<Method name="postjson">
+<ClassMethod>1</ClassMethod>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+    set tS = $$$OK
+
+    kill ^json
+    
+    set tJsonText = %request.Data("postdata",1)
+    
+    //Javaから渡ってきた文字列にBYTE ORDER MARKが入っているようなので、取り除く
+    //UTF-8で出力したファイルに既に入っている可能性もあり
+ 
+    // 65279 = U+FEFF
+    
+    set tJsonText = $Translate(tJsonText,$Char(65279),"")
+        
+    try {
+	    
+      $$$THROWONERROR(tS,##class(%ZEN.Auxiliary.jsonProvider).%ConvertJSONToObject(tJsonText,,.tOBJ,1))
+	    
+	  set ^json("grade") = tOBJ.Grade
+	  set ^json("Class") = tOBJ.Class
+	  set ^json("Name") = tOBJ.Name
+	  
+	  for i = 1:1:3 {
+	    set ^json("Results",i,"Subject") = tOBJ.Results.GetAt(i).Subject
+	    set ^json("Results",i,"Score") = tOBJ.Results.GetAt(i).Score
+	  }
+    }
+    catch ex {
+	    set tS=ex.AsStatus()
+    }
+ Quit tS
+]]></Implementation>
+</Method>
+
+<Method name="SendJSON">
+<ClassMethod>1</ClassMethod>
+<FormalSpec>pJsontext:%String</FormalSpec>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+    set tS = $$$OK
+
+    kill ^json
+    
+    set tJsonText = pJsontext
+    
+    //Javaから渡ってきた文字列にBYTE ORDER MARKが入っているようなので、取り除く
+    //UTF-8で出力したファイルに既に入っている可能性もあり
+ 
+    // 65279 = U+FEFF
+    
+    set tJsonText = $Translate(tJsonText,$Char(65279),"")
+        
+    try {
+	    
+      $$$THROWONERROR(tS,##class(%ZEN.Auxiliary.jsonProvider).%ConvertJSONToObject(tJsonText,,.tOBJ,1))
+	    
+	  set ^json("grade") = tOBJ.Grade
+	  set ^json("Class") = tOBJ.Class
+	  set ^json("Name") = tOBJ.Name
+	  
+	  for i = 1:1:3 {
+	    set ^json("Results",i,"Subject") = tOBJ.Results.GetAt(i).Subject
+	    set ^json("Results",i,"Score") = tOBJ.Results.GetAt(i).Score
+	  }
+    }
+    catch ex {
+	    set tS=ex.AsStatus()
+    }
+ Quit tS
+]]></Implementation>
+</Method>
+</Class>
+</Export>

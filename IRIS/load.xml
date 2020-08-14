@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25" zv="Cache for Windows (x86-64) 2014.1 (Build 601U)" ts="2014-03-10 16:27:48">
+<Class name="User.LoadHelper">
+<Super>%Base</Super>
+<TimeChanged>63256,58368.193452</TimeChanged>
+<TimeCreated>63256,57177.238157</TimeCreated>
+
+<Method name="ListFromString">
+<ClassMethod>1</ClassMethod>
+<FormalSpec>pInput:%String</FormalSpec>
+<ReturnType>%String</ReturnType>
+<Implementation><![CDATA[	Quit $ListFromString(pInput,";")
+]]></Implementation>
+</Method>
+
+<Method name="ListToString">
+<ClassMethod>1</ClassMethod>
+<FormalSpec>pInput:%String</FormalSpec>
+<ReturnType>%String</ReturnType>
+<Implementation><![CDATA[	Quit $ListToString(pInput,";")
+]]></Implementation>
+</Method>
+
+<Method name="Load">
+<ClassMethod>1</ClassMethod>
+<FormalSpec>pInputFile:%String,pCompileSwitch</FormalSpec>
+<ReturnType>%String</ReturnType>
+<Implementation><![CDATA[
+	Do ##class(%SYSTEM.OBJ).Load(pInputFile,pCompileSwitch,.error)
+	If (+$Get(error) = 0) {
+		 Quit "Load成功"
+	}
+	Else {
+		Quit $Get(error(1))
+	}
+]]></Implementation>
+</Method>
+</Class>
+</Export>
