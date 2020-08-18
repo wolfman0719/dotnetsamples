@@ -1,79 +1,130 @@
-# IRIS .Net Interfaces samples 
+# IRIS .NET インターフェースサンプル
 
-Here's samples that shows how to use the various .Net interfaces provided in IRIS.
-Most of them were originally written for Cache and modified to work with IRIS.
+IRISに用意されている.NETの様々なインタフェースの使用方法を示すサンプルです。
+ほとんどのものは、Cachéで動作していたものをIRIS用に書き直したものです。
 
+# ディレクトリ構成
 
-JSON形式のデータを.NetとCaché間で交換するサンプル(.NETからCachéへJSONデータを送る)
+## README.MD
 
-1.　動作環境　
+このファイルです。
 
-　Caché　2014.1以降
+## LICENSE
 
-2.　前提事項
+MIT Licenseに準拠してることを示す文書です。
 
-　以前公開したJSON&jqueryのサンプルがインストールおよびセットアップされてること
+## User
 
-3.　必要な参照設定
+バイナリー処理のサンプルに必要なIRISクラス定義
+
+- User.Fax.cls
+
+## REST
+
+RESTサンプルで使用するIRISクラス定義
+
+- REST.Broker.cls
+- REST.JSON.cls
+
+## MyApp
+
+- MyApp.Person2.cls
+
+## restsetup.png
+
+RESTインタフェースを動作させるために必要な管理ポータルの設定を示す図
+
+## Cache
+
+Caché用のオリジナルファイル
+
+最新版のCachéで動作確認できていません。
+
+## IRIS
+
+IRIS用に書き換えたもの
+
+IRIS　2020.2で動作確認しています。
+
+IRIS　2020.3以降デフォルト・スーパーポート番号が51773から1972に変更されているため、そのポート番号を書き換える必要があります。
+
+### callclassmethod.ps1
+
+Powershellから.NET Native APIを使用してクラスメソッドを呼び出すサンプル
+
+### callclassmethodextreme.ps1
+
+PowerShellから.NETのXEPインタフェースを使ってクラスメソッドを呼び出すサンプル
+
+### classload.ps1
+
+Powershellから.Net Native APIを使用してクラス定義をロードするサンプル
+
+### classloadextreme.ps1
+
+Powershellから.NET XEPインタフェースを使用してクラス定義をロードするサンプル
+
+### load.xml
+
+クラス定義をロードするサンプルで使用するクラス定義のXMLファイル
+
+### ConsoleApplication1
+
+.NET Native APIを使用してクラスメソッドを呼び出すサンプル
+
+### ConsoleApplication3
+
+.NET XEP APIを使用してクラスメソッドを呼び出すサンプル
+
+### insertbinary
+
+ADO.NETのIRISインタフェースを使用してバイナリファイルを読み込むサンプル
+
+#### 前提条件
+
+　c:\temp\test.jpgというファイルがある前提
+
+### VBIMage
+
+.NET Native APIを使用してバイナリーファイルの読み書きを行うサンプル
+
+#### 前提条件
+
+　c:\temp\test.jpgというファイルがある前提
+
+#### 参照設定
+
+InterSystems.Data.CacheClient
+
+#### 実行方法
+
+- Upload!ボタンをクリック
+
+- Display!ボタンをクリック
+
+### REST
+
+REST/JSONを使用したサンプル
+
+#### ParseJSON
+
+IRISサーバーからJSONデータを取得するサンプル
+
+#### SendJSON
+
+IRISサーバーにJSONデータを送信するサンプル
+
+##### 必要な参照設定
 
 System.Json;
 InterSystems.XEP;
 
 
+##### NuGetパッケージのインストール
 
-4. 実行手順
+- ツール>NuGetパッケージマネージャー>パッケージマネージャーコンソール
 
+- 以下を実行
 
-sendjson.xmlをインポート
+- PM> Install-Package JsonValue -Version 0.6.0
 
-
-ツール>NuGetパッケージマネージャー>パッケージマネージャーコンソール
-
-以下を実行
-
-PM> Install-Package JsonValue -Version 0.6.0
-
-
-sendJSON.csをコンパイル、実行
-
-ソース上は
-
-userネームスペース
-
-　
-となっているので、実行環境に合わせてこの指定を変更
-
-バイナリーデータをVB.Netでロード＆表示するサンプル
-
-1.　動作環境　
-
-　Cache　2014.1以降
-
-2.　前提事項
-
-　c:\temp\test.jpgというファイルがある前提
-
-3.　必要な参照設定
-
-InterSystems.Data.CacheClient
-
-
-4. 実行手順
-
-4.1 User.Fax.xmlをuserネームスペースにインポート
-
-
-4.2 CacheNetWizard.exeを使って.netのプロキシクラスを生成
-（fax.vb）
-
-4.3 マイクロソフトビジュアルスタジオでVBimage.slnを開く
-
-4.4 4.2で生成したファイルをプロジェクトに追加（含まれていない場合）
-
-4.5　ビルド(B)>ソリューションのビルド（B）をクリック
-
-4.6　デバッグ(D)>デバッグなしで開始(H)をクリック
-
-4.7  Upload!ボタンをクリック
-
-4.8　Display!ボタンをクリック
