@@ -5,7 +5,7 @@ IRISに用意されている.NETの様々なインタフェースの使用方法
 
 # ディレクトリ構成
 
-## README.MD
+## README.md
 
 このファイルです。
 
@@ -27,6 +27,8 @@ RESTサンプルで使用するIRISクラス定義
 - REST.JSON.cls
 
 ## MyApp
+
+insertbinaryサンプルで使用するクラス定義
 
 - MyApp.Person2.cls
 
