@@ -86,9 +86,27 @@ ADO.NETのIRISインタフェースを使用してバイナリファイルを読
 
 　c:\temp\test.jpgというファイルがある前提
 
-### VBIMage
+### VBImage
 
 .NET Native APIを使用してバイナリーファイルの読み書きを行うサンプル
+
+#### 前提条件
+
+　c:\temp\test.jpgというファイルがある前提
+
+#### 参照設定
+
+InterSystems.Data.CacheClient
+
+#### 実行方法
+
+- Upload!ボタンをクリック
+
+- Display!ボタンをクリック
+
+### VBImageADO
+
+ADO.Netを使用してバイナリーファイルの読み書きを行うサンプル
 
 #### 前提条件
 
