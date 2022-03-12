@@ -7,7 +7,7 @@ Public Class Form1
 
     Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
         Dim cn As IRISConnection
-        cn = New IRISConnection("Server=127.0.0.1;Port=51773;Namespace=User;Username=_system;Password=SYS")
+        cn = New IRISConnection("Server=127.0.0.1;Port=1972;Namespace=User;Username=_system;Password=SYS")
         cn.Open()
         Dim iris As IRIS
         Dim irisobject As IRISObject
@@ -29,22 +29,13 @@ Public Class Form1
         buf = New Byte(img.Length) {}
         img.Read(buf, 0, img.Length)
 
-        str = System.Text.Encoding.GetEncoding("ISO-8859-1").GetString(buf)
+        'str = System.Text.Encoding.GetEncoding("ISO-8859-1").GetString(buf)
 
         pic = irisobject.GetObject("pic")
 
-        pic.InvokeVoid("Write", str)
+        pic.InvokeVoid("Write", buf)
 
-        irisobject.InvokeIRISStatusCode("%Save")
-
-        'Dim f As User.Fax
-
-        ' NEW -----------
-        'f = New User.Fax(cn)
-        'img.CopyTo(f.pic)
-        'f.memo = "abcde"
-        'f.Save()
-        'f.Dispose()
+        irisobject.InvokeStatusCode("%Save")
 
         MsgBox("Done!")
 
@@ -63,7 +54,7 @@ Public Class Form1
         Dim str As String
         Dim len As Long
 
-        cn = New IRISConnection("Server=127.0.0.1;Port=51773;Namespace=User;Username=_system;Password=SYS")
+        cn = New IRISConnection("Server=127.0.0.1;Port=1972;Namespace=User;Username=_system;Password=SYS")
         cn.Open()
 
         iris = IRIS.CreateIRIS(cn)
