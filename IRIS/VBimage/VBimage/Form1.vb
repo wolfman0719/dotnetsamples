@@ -11,29 +11,27 @@ Public Class Form1
         cn.Open()
         Dim iris As IRIS
         Dim irisobject As IRISObject
-        Dim memstream As New MemoryStream
-        Dim str As String
-        Dim buf As Byte()
         Dim pic As IRISObject
+        Dim maxlength As Long
 
+
+        maxlength = 3600000L
 
         iris = IRIS.CreateIRIS(cn)
 
         irisobject = iris.ClassMethodObject("User.Fax", "%New")
 
+        pic = irisobject.GetObject("pic")
 
 
         Dim img As System.IO.FileStream
         img = New System.IO.FileStream("C:\temp\test.jpg", System.IO.FileMode.Open, IO.FileAccess.Read)
 
-        buf = New Byte(img.Length) {}
-        img.Read(buf, 0, img.Length)
+        Dim bytes = New Byte(maxlength) {}
 
-        'str = System.Text.Encoding.GetEncoding("ISO-8859-1").GetString(buf)
-
-        pic = irisobject.GetObject("pic")
-
-        pic.InvokeVoid("Write", buf)
+        While img.Read(bytes, 0, bytes.Length) > 0
+            pic.InvokeStatusCode("Write", bytes)
+        End While
 
         irisobject.InvokeStatusCode("%Save")
 
@@ -50,9 +48,10 @@ Public Class Form1
         Dim pic As IRISObject
         Dim memorystream As New MemoryStream
 
-        Dim buf As Byte()
-        Dim str As String
+        Dim maxlength As Long
         Dim len As Long
+
+        maxlength = 3600000L
 
         cn = New IRISConnection("Server=127.0.0.1;Port=1972;Namespace=User;Username=_system;Password=SYS")
         cn.Open()
@@ -62,13 +61,13 @@ Public Class Form1
         irisobject = iris.ClassMethodObject("User.Fax", "%OpenId", 1)
         pic = irisobject.GetObject("pic")
 
-        len = pic.InvokeLong("SizeGet")
-
-        str = pic.InvokeString("Read", len)
-
-        buf = System.Text.Encoding.GetEncoding("ISO-8859-1").GetBytes(str)
-
-        memorystream.Write(buf, 0, len)
+        Do
+            Dim buf = pic.InvokeBytes("Read", maxlength)
+            len = buf.Length
+            If len = 0 Then Exit Do
+            memorystream.Write(buf, 0, len)
+            If len < maxlength Then Exit Do
+        Loop
 
         PictureBox1.Image = Image.FromStream(MemoryStream)
 
