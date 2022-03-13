@@ -14,9 +14,7 @@ namespace ConsoleApplication3
             EventPersister ep = PersisterFactory.CreatePersister();
 
             //ep.Connect("USER", "_SYSTEM", "SYS");
-            //ep.Connect("localhost",1972,"USER", "_SYSTEM", "SYS");
-
-            ep.Connect("localhost", 51773, "USER", "_SYSTEM", "SYS");
+            ep.Connect("localhost",1972,"USER", "_SYSTEM", "SYS");
             Object returnvalue = ep.CallClassMethod("%SYSTEM.Version", "GetVersion");
             Console.Write("ReturnValue = " + returnvalue.ToString());
 
