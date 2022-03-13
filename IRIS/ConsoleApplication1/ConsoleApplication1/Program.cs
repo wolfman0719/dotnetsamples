@@ -22,8 +22,7 @@ namespace ConsoleApplication1
 
             // Cache server Connection Information
             // Set Server to your IP address and port to Cache SuperServer port, Log File is optional
-            //conn.ConnectionString = "Server = localhost; Log File=cprovider.log;Port=1972; Namespace=Samples; Password = SYS; User ID = _SYSTEM;";
-            conn.ConnectionString = "Server = localhost; Log File=cprovider.log;Port=51773; Namespace=USER; Password = SYS; User ID = _SYSTEM;";
+            conn.ConnectionString = "Server = localhost; Log File=cprovider.log;Port=1972; Namespace=USER; Password = SYS; User ID = _SYSTEM;";
 
             //Open a Connection to Cache
             conn.Open();
