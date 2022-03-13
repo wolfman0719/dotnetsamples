@@ -29,7 +29,7 @@ namespace binaryfileread {
 
         readSize = fs.Read(buf, 0, (int)fs.Length);
 
-        string IRISConnectString = "Server = localhost;Port=51773;Namespace=User;Password=SYS;User ID = _SYSTEM;";
+        string IRISConnectString = "Server = localhost;Port=1972;Namespace=User;Password=SYS;User ID = _SYSTEM;";
         cnIRIS = new IRISConnection(IRISConnectString);
         cnIRIS.Open();
         spIRIS = new IRISCommand("Insert into MyApp.Person2(Name, Picture) Values(?, ?)", cnIRIS, txIRIS);
