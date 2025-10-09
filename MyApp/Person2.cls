@@ -8,7 +8,7 @@ Property DOB As %Date(FORMAT = 3);
 
 Property FavoriteColors As list Of %String;
 
-Property Picture As %Stream.FileBinary(LOCATION = "c:\temp");
+Property Picture As %Stream.FileBinary;
 
 Storage Default
 {
