@@ -13,7 +13,4 @@
       <HintPath>\opt\iris\dev\dotnet\bin\net8.0\InterSystems.Data.IRISClient.dll</HintPath>
     </Reference>
   </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.4"/>
-  </ItemGroup>
 </Project>
