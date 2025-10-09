@@ -17,7 +17,7 @@ namespace binaryfileread {
         IRISConnection cnIRIS;
         IRISTransaction txIRIS = null;
 
-        //存在するファイルを指定する
+        //環境に合わせて存在するファイルを指定する
         FileStream fs = new FileStream(
         @"c:\temp\test.jpeg", FileMode.Open, FileAccess.Read);
 
@@ -55,3 +55,4 @@ namespace binaryfileread {
     }
    }
 }
+
