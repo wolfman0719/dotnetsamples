@@ -53,6 +53,10 @@ IRIS　2025.2で動作確認しています。
 
 Powershellから.NET Native APIを使用してクラスメソッドを呼び出すサンプル
 
+Powershellで動かす前に以下のポリシー設定が必要
+
+ `Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process`
+
 ### classload.ps1
 
 Powershellから.Net Native APIを使用してクラス定義をロードするサンプル
@@ -115,6 +119,7 @@ IRISサーバーからJSONデータを取得するサンプル
 #### SendJSON
 
 IRISサーバーにJSONデータを送信するサンプル
+
 
 
 
