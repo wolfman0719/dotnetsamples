@@ -141,21 +141,9 @@ IRISサーバーからJSONデータを取得するサンプル
 
 IRISサーバーにJSONデータを送信するサンプル
 
-このサンプルは、.net Framework(V4.*)でしか動作しません。
-
 ##### 必要な参照設定
 
 System.Json;
-InterSystems.XEP;
-
-
-##### NuGetパッケージのインストール
-
-- ツール>NuGetパッケージマネージャー>パッケージマネージャーコンソール
-
-- 以下を実行
-
-- PM> Install-Package JsonValue -Version 0.6.0
 
 
 
