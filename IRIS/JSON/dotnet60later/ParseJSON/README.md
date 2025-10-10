@@ -11,4 +11,4 @@ string url = "http://localhost:8080/api/dotnetrest/getcolors";
 
 ## ライブラリのディレクトリ
 
-環境依存なので環境に合わせてsamples.csprojの<HintPath>の値を修正する
+環境依存なので環境に合わせてsamples.csprojの`<HintPath>`の値を修正する
