@@ -54,7 +54,7 @@
   <ItemGroup>
     <Reference Include="InterSystems.Data.IRISClient, Version=4.0.0.0, Culture=neutral, PublicKeyToken=ad350a26c4a4447c, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\..\..\InterSystems\IRIS\dev\dotnet\bin\v4.5\InterSystems.Data.IRISClient.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\..\InterSystems\IRIS\dev\dotnet\bin\v4.6.2\InterSystems.Data.IRISClient.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -134,4 +134,5 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+
 </Project>
