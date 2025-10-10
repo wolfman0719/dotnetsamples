@@ -53,21 +53,10 @@ IRIS　2025.2で動作確認しています。
 
 Powershellから.NET Native APIを使用してクラスメソッドを呼び出すサンプル
 
-### callclassmethodextreme.ps1
-
-PowerShellから.NETのXEPインタフェースを使ってクラスメソッドを呼び出すサンプル
-
-このサンプルは、.net Framework(V4.*)でしか動作しません。
-
 ### classload.ps1
 
 Powershellから.Net Native APIを使用してクラス定義をロードするサンプル
 
-### classloadextreme.ps1
-
-Powershellから.NET XEPインタフェースを使用してクラス定義をロードするサンプル
-
-このサンプルは、.net Framework(V4.*)でしか動作しません。
 
 ### load.xml
 
@@ -78,12 +67,6 @@ c:¥temp¥load.xmlにファイルを置くという前提でプログラムは�
 ### ConsoleApplication1
 
 .NET Native APIを使用してクラスメソッドを呼び出すサンプル
-
-### ConsoleApplication3
-
-.NET XEP APIを使用してクラスメソッドを呼び出すサンプル
-
-このサンプルは、.net Framework(V4.*)でしか動作しません。
 
 ### insertbinary
 
@@ -132,6 +115,7 @@ IRISサーバーからJSONデータを取得するサンプル
 #### SendJSON
 
 IRISサーバーにJSONデータを送信するサンプル
+
 
 
 
