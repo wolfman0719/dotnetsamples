@@ -16,3 +16,8 @@ dirとdelimは環境に合わせて調整する
 ## API設定
 
 restsetup.pngと同じように設定する
+
+
+## Visual Studio Codeの使用
+
+VSCodeを使用してビルドする場合は、C# Dev Toolプラグインをインストールする
