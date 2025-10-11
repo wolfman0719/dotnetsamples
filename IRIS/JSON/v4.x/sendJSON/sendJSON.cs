@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Json;
-using InterSystems.XEP;
+using InterSystems.Data.IRISClient;
+using InterSystems.Data.IRISClient.ADO;
 
     class sendJSON
    { 
@@ -41,14 +42,18 @@ using InterSystems.XEP;
 
            Console.WriteLine(jso.ToString());
 
-           EventPersister ep = PersisterFactory.CreatePersister();
+           IRISConnection conn = new IRISConnection();
+           IRIS iris;
 
-           //ep.Connect("USER", "_SYSTEM", "SYS");
-           ep.Connect("localhost",1972,"USER", "_SYSTEM", "SYS");
+           conn.ConnectionString = "Server = localhost; Log File=cprovider.log;Port=1972; Namespace=USER; Password = SYS; User ID = _SYSTEM;";
 
-           Object returnvalue = ep.CallClassMethod("REST.JSON", "SendJSON",jso.ToString());
+           conn.Open();
 
-           ep.Close();
+           iris = IRIS.CreateIRIS(conn);
+           string ReturnValue = iris.ClassMethodString("REST.JSON", "SendJSON", jso.ToString());
 
+           conn.Close();
+           
        }
    }
+
